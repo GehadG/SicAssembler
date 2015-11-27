@@ -26,7 +26,7 @@ public class ListFile {
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.address = address.toUpperCase();
     }
 
     public String getOpcode() {
@@ -63,8 +63,17 @@ public class ListFile {
     
     @Override
     public String toString()
-    {
-        return label+"  "+operation+"  "+operand;
+    {String space1="";
+    String space2="";
+    String space3="";
+    for(int i=1;i<=9-label.length();i++)
+        space1=space1+" ";
+    for(int i=1;i<=8-operation.length();i++)
+        space2=space2+" ";
+    for(int i=1;i<=15-operand.length();i++)
+        space3=space3+" ";
+    
+        return label+space1+operation+space2+operand+space3+address;
     }
    
 }

@@ -19,7 +19,7 @@ public class SicAssembler {
      */
     public static void main(String[] args) {
         
-        readInstructions x = new readInstructions();
+        AssignAdresses.assign();
         
         
     

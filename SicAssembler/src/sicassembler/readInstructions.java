@@ -31,7 +31,7 @@ public class readInstructions {
     private static void openfile(){
         
         try{
-            scan = new Scanner(new  File("C:\\Users\\Mahmoud\\Desktop\\Programming II\\SicAssembler\\SicAssembler\\SRCFILE"));
+            scan = new Scanner(new  File(System.getProperty("user.dir")+"\\SRCFILE"));
             add();
             closefile();
         }
@@ -45,8 +45,11 @@ public class readInstructions {
             String z  = scan.nextLine();
            ListFile l = new ListFile();
             a = z.substring(0, 9);
+            a=a.replaceAll("\\s","");
             b = z.substring(9, 17);
+            b=b.replaceAll("\\s","");
             c = z.substring(17);
+            c=c.replaceAll("\\s","");
             l.setLabel(a);
             l.setOperation(b);
             l.setOperand(c);
@@ -54,12 +57,7 @@ public class readInstructions {
         }
     }
     private static void closefile(){
-         
-         for(ListFile l:x)
-         {
-             System.out.println(l.toString());
-             
-         }
+       
         scan.close();
     }
 }
