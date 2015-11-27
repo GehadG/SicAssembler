@@ -19,7 +19,7 @@ public class SicAssembler {
      */
     public static void main(String[] args) {
         
-        read x = new read();
+        readInstructions x = new readInstructions();
         
         
     
