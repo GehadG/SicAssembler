@@ -45,11 +45,11 @@ public class readInstructions {
             String z  = scan.nextLine();
            ListFile l = new ListFile();
             a = z.substring(0, 9);
-            a=a.replaceAll("\\s","");
+            a=a.trim();
             b = z.substring(9, 17);
-            b=b.replaceAll("\\s","");
+            b=b.trim();
             c = z.substring(17);
-            c=c.replaceAll("\\s","");
+            c=c.trim();
             l.setLabel(a);
             l.setOperation(b);
             l.setOperand(c);

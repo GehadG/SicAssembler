@@ -20,6 +20,7 @@ public class AssignAdresses {
         
         String initial= y.get(0).getOperand();
         y.get(1).setAddress(initial);
+        y.get(0).setAddress(initial);
         long decimal = Long.parseLong(initial, 16);
         System.out.println(decimal);
         for (int i=1;i<y.size();i++){
@@ -64,7 +65,8 @@ public class AssignAdresses {
         
          for(ListFile l:y)
          {
-             System.out.println(l.toString());
+             if(l.getLabel().isEmpty()==false)
+                 System.out.println(l);
              
          }
     }
