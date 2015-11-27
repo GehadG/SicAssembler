@@ -16,16 +16,34 @@ public class AssignAdresses {
    private static ArrayList<ListFile> y = new ArrayList<ListFile>();
     public static void assign()
     {
-        y=readInstructions.getInstructions();//copy all objects of arraylist x to arraylist y
+        y=readInstructions.getInstructions();
         
         String initial= y.get(0).getOperand();
         y.get(1).setAddress(initial);
         long decimal = Long.parseLong(initial, 16);
-        for (int i=2;i<y.size();i++){
-            decimal = decimal +3;
+        System.out.println(decimal);
+        for (int i=1;i<y.size();i++){
+            if(y.get(i).getOperation().toLowerCase().equals("byte"))
+            {
             String hex = Long.toHexString(decimal);
             y.get(i).setAddress(hex);
+                decimal=decimal+y.get(i).getOperand().length()-3;
+                
+            }
+            else
+            {
+                String hex = Long.toHexString(decimal);
+            y.get(i).setAddress(hex);
+            decimal = decimal +3;
+            
+                    }
         }
+        
+         for(ListFile l:y)
+         {
+             System.out.println(l.toString());
+             
+         }
     }
     
 }
