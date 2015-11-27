@@ -8,6 +8,7 @@
 package sicassembler;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 /**
  *
  * @author Mahmoud
@@ -15,25 +16,37 @@ import java.util.ArrayList;
 public class ReadInstructionLines {
    
     ArrayList<ListFile> x = new ArrayList();
-    /*String line;
-    String line1 = line.substring(0, 9);
-    String line2 = line.substring(9, 17);
-    String line3 = line.substring(17);
-    ListFile[]l= new ListFile[5];
-    for (int i=1;i<=5;i++)
-    {
-        l[i].setLabel(line1);
-        l[i].setOperation(line2);
-        l[i].setOperand(line3);
-    }*/
-    
+     private Scanner scan;
+     private String a;
+     private String b;
+     private String c;
     
     public ReadInstructionLines()
     {
-        File f = new  File("C:\\java\\SRCFILE");
-    
-        if(f.exists()){
-            System.out.println("hi");
+        
     }
+    public void openfile(){
+        
+        try{
+            scan = new Scanner(new  File("C:\\java\\SRCFILE"));
+        }
+        catch(Exception e){
+            System.out.println("File does not exist!");
+        }
+    }
+    public void add(){
+        while (scan.hasNext()){
+            ListFile l = new ListFile();
+            a = scan.next();
+            b = scan.next();
+            c = scan.next();
+            l.setLabel(a);
+            l.setOperation(b);
+            l.setOperand(c);
+            x.add(new ListFile());
+        }
+    }
+    public void closefile(){
+        scan.close();
     }
 }
