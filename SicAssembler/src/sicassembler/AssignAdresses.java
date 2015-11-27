@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class AssignAdresses {
     
    private static ArrayList<ListFile> y = new ArrayList<ListFile>();
-    public static void assign()
+    public static ArrayList<ListFile> assign()
     {
         y=readInstructions.getInstructions();
         
@@ -22,7 +22,7 @@ public class AssignAdresses {
         y.get(1).setAddress(initial);
         y.get(0).setAddress(initial);
         long decimal = Long.parseLong(initial, 16);
-        System.out.println(decimal);
+        
         for (int i=1;i<y.size();i++){
             if(y.get(i).getOperation().toLowerCase().equalsIgnoreCase("byte"))
             {
@@ -63,12 +63,7 @@ public class AssignAdresses {
                     }
         }
         
-         for(ListFile l:y)
-         {
-             if(l.getLabel().isEmpty()==false)
-                 System.out.println(l);
-             
-         }
+         return y;
     }
     
 }
