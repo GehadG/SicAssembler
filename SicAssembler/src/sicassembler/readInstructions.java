@@ -31,7 +31,7 @@ public class readInstructions {
     private static void openfile(){
         
         try{
-            scan = new Scanner(new  File("C:\\Users\\Gehad-PC\\Documents\\NetBeansProjects\\SicAssembler\\SicAssembler\\SRCFILE"));
+            scan = new Scanner(new  File("C:\\Users\\Mahmoud\\Desktop\\Programming II\\SicAssembler\\SicAssembler\\SRCFILE"));
             add();
             closefile();
         }
@@ -42,10 +42,11 @@ public class readInstructions {
     private static void add(){
          
         while (scan.hasNext()){
+            String z  = scan.nextLine();
            ListFile l = new ListFile();
-            a = scan.next();
-            b = scan.next();
-            c = scan.next();
+            a = z.substring(0, 9);
+            b = z.substring(9, 17);
+            c = z.substring(17);
             l.setLabel(a);
             l.setOperation(b);
             l.setOperand(c);
