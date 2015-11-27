@@ -13,40 +13,49 @@ import java.util.Scanner;
  *
  * @author Mahmoud
  */
-public class ReadInstructionLines {
+public class read {
    
-    ArrayList<ListFile> x = new ArrayList();
+     private ArrayList<ListFile> x = new ArrayList();
      private Scanner scan;
      private String a;
      private String b;
      private String c;
     
-    public ReadInstructionLines()
+    public read()
     {
-        
+        openfile();
     }
     public void openfile(){
         
         try{
-            scan = new Scanner(new  File("C:\\java\\SRCFILE"));
+            scan = new Scanner(new  File("C:\\Users\\Gehad-PC\\Documents\\NetBeansProjects\\SicAssembler\\SicAssembler\\SRCFILE"));
+            add();
+            closefile();
         }
         catch(Exception e){
             System.out.println("File does not exist!");
         }
     }
     public void add(){
+         
         while (scan.hasNext()){
-            ListFile l = new ListFile();
+           ListFile l = new ListFile();
             a = scan.next();
             b = scan.next();
             c = scan.next();
             l.setLabel(a);
             l.setOperation(b);
             l.setOperand(c);
-            x.add(new ListFile());
+            x.add(l);
         }
     }
     public void closefile(){
+         
+         for(ListFile l:x)
+         {
+             System.out.println(l.toString());
+             
+         }
         scan.close();
     }
 }

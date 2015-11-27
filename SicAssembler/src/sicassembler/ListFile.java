@@ -60,5 +60,11 @@ public class ListFile {
     public void setOperand(String operand) {
         this.operand = operand;
     }
+    
+    @Override
+    public String toString()
+    {
+        return label+"  "+operation+"  "+operand;
+    }
    
 }
