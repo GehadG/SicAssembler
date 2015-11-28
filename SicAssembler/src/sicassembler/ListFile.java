@@ -12,7 +12,7 @@ package sicassembler;
 public class ListFile {
     
     private String address;
-    private String objcode;
+    private String objcode="      ";
     private String label;
     private String operation;
     private String operand;
@@ -62,8 +62,8 @@ public class ListFile {
         this.operand = operand;
     }
     
-    @Override
-    public String toString()
+    
+    public void print()
     {String space1="";
     String space2="";
     String space3="";
@@ -73,8 +73,39 @@ public class ListFile {
         space2=space2+" ";
     for(int i=1;i<=15-operand.length();i++)
         space3=space3+" ";
-    
-        return label+space1+operation+space2+operand+space3+address;
+     String space34="";
+        for(int i=1;i<=6-objcode.length();i++)
+        space34=space34+" ";
+
+    if(objcode.length()>6)
+    {int l=(int)(objcode.length()/6.0-1);
+    int k=1;
+        System.out.println( address+"  "+objcode.substring(0, 6)+"  "+label+space1+operation+space2+operand+space3+address);
+        while(k<l)
+        
+        {System.out.println("      "+objcode.substring(k*6, (k*6)+6)); 
+        
+        
+      
+        k++;
+            
+            
+        
+       
     }
+       
+        System.out.println("      "+objcode.substring(k*6));
+    }
+    else
+    {
+          System.out.println( address+"  "+objcode+space34+"  "+label+space1+operation+space2+operand+space3+address);
+    }
+      
    
+   
+    
+    }
 }
+
+
+
