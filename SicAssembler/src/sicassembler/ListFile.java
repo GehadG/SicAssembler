@@ -8,7 +8,26 @@ public class ListFile {
     private String objcode="      ";
     private String label;
     private String operation;
+
+    public boolean isErr() {
+        return Err;
+    }
+
+    public void setErr(boolean Err) {
+        this.Err = Err;
+    }
+
+    public String getComment() {
+        return Comment;
+    }
+
+    public void setComment(String Comment) {
+        this.Comment = Comment;
+    }
     private String operand;
+    private boolean Err;
+    private String Comment="No Comment";
+    
     
     public ListFile(){
         
@@ -96,7 +115,12 @@ String lollipop="";
           lollipop=( address+"  "+objcode+space34+"  "+label+space1+operation+space2+operand);
     }
       
-   
+   if(isErr())
+   {
+       lollipop=lollipop+"\n **** illegal format in operation field                 \n" +
+" **** unrecognized operation code                       \n" +
+" **** missing or misplaced operand in instruction";
+   }
    return lollipop;
     
     }

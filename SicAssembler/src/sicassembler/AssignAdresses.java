@@ -24,6 +24,10 @@ public class AssignAdresses {
         long decimal = Long.parseLong(initial, 16);
         
         for (int i=1;i<y.size();i++){
+            if(y.get(i).getComment().equalsIgnoreCase("No Comment")==false)
+            {
+                continue;
+            }
             if(y.get(i).getOperation().toLowerCase().equalsIgnoreCase("byte"))
             {
                 String m = y.get(i).getOperand();

@@ -14,8 +14,20 @@ public class ObjectCode {
            String ba="";
            int x=0;
           String b2= b.get(i).getOperation();
+          
+          
           if(!b2.equalsIgnoreCase("resw")&&!b2.equalsIgnoreCase("resb")&&!b2.equalsIgnoreCase("end")&&!b2.equalsIgnoreCase("word")&&!b2.equalsIgnoreCase("byte"))
           {String b3=b22.getOP(b2);
+          if (b3.equalsIgnoreCase("invalid"))
+          {
+              b.get(i).setErr(true);
+              
+              continue;
+          }
+          if(b.get(i).getComment().equals("No Comment")==false)
+          {
+              continue;
+          }
           String b4 = b.get(i).getOperand();
           if(b4.indexOf(',')!=-1){
                x=1;
@@ -42,6 +54,7 @@ public class ObjectCode {
                              {
                                  ba=l.getAddress();
                              }
+                 
                  }
              }
           }

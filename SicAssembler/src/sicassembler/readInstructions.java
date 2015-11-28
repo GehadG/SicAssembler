@@ -38,7 +38,14 @@ public class readInstructions {
          
         while (scan.hasNext()){
             String z  = scan.nextLine();
+           
            ListFile l = new ListFile();
+           if(z.startsWith("."))
+           {
+               l.setComment(z);
+               x.add(l);
+               continue;
+           }
             a = z.substring(0, 9);
             a=a.trim();
             b = z.substring(9, 17);
@@ -52,7 +59,7 @@ public class readInstructions {
         }
     }
     private static void closefile(){
-       
+
         scan.close();
     }
 }
