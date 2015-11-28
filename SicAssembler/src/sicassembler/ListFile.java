@@ -80,7 +80,7 @@ public class ListFile {
     if(objcode.length()>6)
     {int l=(int)(objcode.length()/6.0-1);
     int k=1;
-        System.out.println( address+"  "+objcode.substring(0, 6)+"  "+label+space1+operation+space2+operand+space3+address);
+        System.out.println( address+"  "+objcode.substring(0, 6)+"  "+label+space1+operation+space2+operand);
         while(k<l)
         
         {System.out.println("      "+objcode.substring(k*6, (k*6)+6)); 
@@ -98,7 +98,7 @@ public class ListFile {
     }
     else
     {
-          System.out.println( address+"  "+objcode+space34+"  "+label+space1+operation+space2+operand+space3+address);
+          System.out.println( address+"  "+objcode+space34+"  "+label+space1+operation+space2+operand);
     }
       
    
