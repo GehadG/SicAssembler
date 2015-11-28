@@ -12,7 +12,7 @@ package sicassembler;
 public class ListFile {
     
     private String address;
-    private String opcode;
+    private String objcode;
     private String label;
     private String operation;
     private String operand;
@@ -29,14 +29,15 @@ public class ListFile {
         this.address = address.toUpperCase();
     }
 
-    public String getOpcode() {
-        return opcode;
+    public String getObjcode() {
+        return objcode;
     }
 
-    public void setOpcode(String opcode) {
-        this.opcode = opcode;
+    public void setObjcode(String objcode) {
+        this.objcode = objcode;
     }
 
+    
     public String getLabel() {
         return label;
     }

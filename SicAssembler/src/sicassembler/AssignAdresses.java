@@ -62,7 +62,12 @@ public class AssignAdresses {
             
                     }
         }
-        
+        for(ListFile l:y)
+         {
+             
+                 System.out.println(l);
+             
+         }
          return y;
     }
     

@@ -19,8 +19,8 @@ public class SicAssembler {
      */
     public static void main(String[] args) {
         
-        AssignAdresses.assign();
-        
+        //AssignAdresses.assign();
+        ObjectCode.objectcode();
         
         
     
