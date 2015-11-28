@@ -1,18 +1,12 @@
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package sicassembler;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
-/**
- *
- * @author Mahmoud
- */
+import javax.swing.JOptionPane;
+
 public class readInstructions {
    
      private static ArrayList<ListFile> x = new ArrayList();
@@ -36,7 +30,8 @@ public class readInstructions {
             closefile();
         }
         catch(Exception e){
-            System.out.println("File does not exist!");
+             JOptionPane.showMessageDialog(null, "File Not Found", "Error", JOptionPane.WARNING_MESSAGE);
+             System.exit(0);
         }
     }
     private static void add(){

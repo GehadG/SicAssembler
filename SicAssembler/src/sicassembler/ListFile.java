@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sicassembler;
 
-/**
- *
- * @author Mahmoud
- */
+
 public class ListFile {
     
     private String address;
@@ -63,7 +56,8 @@ public class ListFile {
     }
     
     
-    public void print()
+    @Override
+    public String toString()
     {String space1="";
     String space2="";
     String space3="";
@@ -76,14 +70,15 @@ public class ListFile {
      String space34="";
         for(int i=1;i<=6-objcode.length();i++)
         space34=space34+" ";
-
+String lollipop="";
     if(objcode.length()>6)
     {int l=(int)(objcode.length()/6.0-1);
     int k=1;
-        System.out.println( address+"  "+objcode.substring(0, 6)+"  "+label+space1+operation+space2+operand);
+    
+       lollipop=( address+"  "+objcode.substring(0, 6)+"  "+label+space1+operation+space2+operand+"\n");
         while(k<l)
         
-        {System.out.println("      "+objcode.substring(k*6, (k*6)+6)); 
+        {lollipop=lollipop+("      "+objcode.substring(k*6, (k*6)+6)+"\n"); 
         
         
       
@@ -94,15 +89,15 @@ public class ListFile {
        
     }
        
-        System.out.println("      "+objcode.substring(k*6));
+        lollipop=lollipop+("      "+objcode.substring(k*6));
     }
     else
-    {
-          System.out.println( address+"  "+objcode+space34+"  "+label+space1+operation+space2+operand);
+    { 
+          lollipop=( address+"  "+objcode+space34+"  "+label+space1+operation+space2+operand);
     }
       
    
-   
+   return lollipop;
     
     }
 }

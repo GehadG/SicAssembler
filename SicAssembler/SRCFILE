@@ -20,7 +20,7 @@ loop     lda     number
          lda     index 
          add     one 
          sta     index 
-         j       loop 
+         j       0101A 
 p        lda     flag 
          add     one 
          sta     flag 

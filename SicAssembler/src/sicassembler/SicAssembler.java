@@ -6,7 +6,17 @@
 
 package sicassembler;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,13 +24,12 @@ import java.io.File;
  */
 public class SicAssembler {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
         
         
-        ObjectCode.objectcode();
+        
+
         
         
         
