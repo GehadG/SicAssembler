@@ -134,7 +134,6 @@ private String getText(){
             len=hexCal(start,end);
             start=String.format("%6s",l2.get(i).getAddress()).replace(' ', '0');
             text=text+len+objcode;
-            System.out.println("wasal");
             }
         }
         else if(objcode.length()==60){
