@@ -22,7 +22,9 @@ public class ObjectCode {
           
           
           if(!b2.equalsIgnoreCase("resw")&&!b2.equalsIgnoreCase("resb")&&!b2.equalsIgnoreCase("end")&&!b2.equalsIgnoreCase("word")&&!b2.equalsIgnoreCase("byte"))
-          {String b3=b22.getOP(b2);
+          {
+              String b3=b22.getOP(b2);
+              String ll="";
           if (b3.equalsIgnoreCase("invalid"))
           {
               b.get(i).setErr(true);
@@ -66,12 +68,10 @@ public class ObjectCode {
              {
                  b.get(i).setOperandError(true);
              }
+             
           }
  
-         if(ba.startsWith(""))
-         {
-             continue;
-         }
+        
           long dec = Long.parseLong(ba, 16);
           String bin = String.format("%16s",Long.toBinaryString(dec)).replace(' ','0');
           bin=""+x+""+bin.substring(1);
@@ -123,7 +123,10 @@ public class ObjectCode {
           
        }
        
-       
+       for(ListFile l : b)
+       {
+           System.out.println(l.getObjcode());
+       }
        return b;
    }
 }
