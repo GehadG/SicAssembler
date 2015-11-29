@@ -137,7 +137,6 @@ private String getText(){
             }
         }
         else if(objcode.length()==60){
-            System.out.println(objcode);
             end=String.format("%6s",l2.get(i).getAddress()).replace(' ', '0');
             len=hexCal(start,end);
             start=String.format("%6s",l2.get(i).getAddress()).replace(' ', '0');
