@@ -27,6 +27,24 @@ public class ListFile {
     private String operand;
     private boolean Err;
     private String Comment="No Comment";
+    private boolean operandError;
+
+    public boolean isOperandError() {
+        return operandError;
+    }
+
+    public void setOperandError(boolean operandError) {
+        this.operandError = operandError;
+    }
+
+    public boolean isLabelError() {
+        return labelError;
+    }
+
+    public void setLabelError(boolean labelError) {
+        this.labelError = labelError;
+    }
+    private boolean labelError;
     
     
     public ListFile(){
@@ -77,7 +95,9 @@ public class ListFile {
     
     @Override
     public String toString()
-    {String space1="";
+    {if(Comment.equals("No Comment")){
+        
+        String space1="";
     String space2="";
     String space3="";
     for(int i=1;i<=9-label.length();i++)
@@ -95,7 +115,7 @@ String lollipop="";
     int k=1;
     
        lollipop=( address+"  "+objcode.substring(0, 6)+"  "+label+space1+operation+space2+operand+"\n");
-        while(k<l)
+        while(k<=l)
         
         {lollipop=lollipop+("      "+objcode.substring(k*6, (k*6)+6)+"\n"); 
         
@@ -107,8 +127,15 @@ String lollipop="";
         
        
     }
-       
-        lollipop=lollipop+("      "+objcode.substring(k*6));
+       if(k*6<objcode.length())
+       {
+           lollipop=lollipop+("      "+objcode.substring(k*6));
+       }
+       else
+       {
+           lollipop=lollipop.substring(0,lollipop.length()-1);
+       }
+        
     }
     else
     { 
@@ -121,10 +148,28 @@ String lollipop="";
 " **** unrecognized operation code                       \n" +
 " **** missing or misplaced operand in instruction";
    }
+   if(isLabelError())
+   {
+       lollipop=lollipop+"\n **** Duplicate Label ";
+   }
+   if(isOperandError())
+   {
+       lollipop=lollipop+"\n **** Unrecognized Operand ";
+   }
    return lollipop;
     
     }
+   
+    else
+    {
+        return this.Comment;
+    }
+        
+
+
+
+
+
+    
 }
-
-
-
+}

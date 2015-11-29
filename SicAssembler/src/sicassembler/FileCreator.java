@@ -110,7 +110,10 @@ private String getText(){
     String len,end=String.format("%6s",l2.get(1).getAddress()).replace(' ', '0'),start=String.format("%6s",l2.get(1).getAddress()).replace(' ', '0');
     String text="";
     for(i=1;i<=l2.size()-1;i++){
-        
+        if(l2.get(i).getComment().equalsIgnoreCase("No Comment")==false)
+        {//Matshelsh Dyh 3ashan deeh betcheck el instruction dyh comment walla l2a .
+            continue;
+        }
         if(text==""){
             text="T"; 
         }

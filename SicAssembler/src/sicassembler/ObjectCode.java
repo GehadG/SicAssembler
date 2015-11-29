@@ -13,6 +13,11 @@ public class ObjectCode {
        for(int i=1;i<b.size();i++){
            String ba="";
            int x=0;
+           String test=b.get(i).getComment();
+           if(test.equalsIgnoreCase("No Comment")==false)
+           {
+               continue;
+           }
           String b2= b.get(i).getOperation();
           
           
@@ -46,18 +51,27 @@ public class ObjectCode {
                  buffer=buffer.substring(0, l);
                  
              }
-             for(int t=0;t<b.size();t++)
-             {
+             boolean flag = false;
+             
                  for(ListFile l : b)
                  {
                      if(l.getLabel().equals(buffer))
                              {
                                  ba=l.getAddress();
+                                 flag=true;
                              }
                  
                  }
+             if (flag==false)
+             {
+                 b.get(i).setOperandError(true);
              }
           }
+ 
+         if(ba.startsWith(""))
+         {
+             continue;
+         }
           long dec = Long.parseLong(ba, 16);
           String bin = String.format("%16s",Long.toBinaryString(dec)).replace(' ','0');
           bin=""+x+""+bin.substring(1);
@@ -68,8 +82,9 @@ public class ObjectCode {
           }
           else if(b2.equalsIgnoreCase("byte"))
           {   String s=b.get(i).getOperand();
-          if(s.startsWith("c'")){
+          if(s.startsWith("c'")||s.startsWith("C'")){
              s= s.replace("c'", "");
+             s= s.replace("C'", "");
              s= s.replace("'", "");
               String ascii="";
        for(int t=0;t<s.length();t++)
@@ -83,8 +98,9 @@ public class ObjectCode {
        
           }
           
-          else if( s.startsWith("x'"))
+          else if( s.startsWith("x'")||s.startsWith("X'"))
           {s= s.replace("x'", "");
+          s= s.replace("X'", "");
              s= s.replace("'", "");
               b.get(i).setObjcode(s.toUpperCase());
           }

@@ -43,9 +43,9 @@ public class OpTable {
     public String getOP(String key)
     {
         String s;
-        if(opTable.containsKey(key))
+        if(opTable.containsKey(key.toLowerCase()))
         {
-            s=opTable.get(key);
+            s=opTable.get(key.toLowerCase());
             
         }
         else

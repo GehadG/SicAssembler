@@ -1,61 +1,50 @@
 FistBump SIC Assembler v1.0
 
 
-1000          test     start   1000
-1000  00107B           lda     number
-1003  28107E           comp    two
-1006  381042           jlt     p
-1009  301042           jeq     p
-100C  00107E           lda     two
-100F  0C1084           sta     index
-1012  00107B  loop     lda     number
-1015  1C1081           sub     one
-1018  281084           comp    index
-101B  301042           jeq     p
-101E  00107B           lda     number
-1021  241084           div     index
-1024  201084           mul     index
-1027  0C108A           sta     num
-102A  00107B           lda     number
-102D  1C108A           sub     num
-1030  28108D           comp    zero
-1033  301063           jeq     exit
-1036  001084           lda     index
-1039  181081           add     one
-103C  0C1084           sta     index
-103F  3C101A           j       0101A
-1042  001087  p        lda     flag
-1045  181081           add     one
-1048  0C1087           sta     flag
-104B  04108D           ldx     zero
-104E  509099  pr       ldch    prime,x
-1051  E0109E  loop2    td      outdev
-1054  301051           jeq     loop2
-1057  DC109E           wd      outdev
-105A  2C109F           tix     five
-105D  38104E           jlt     pr
-1060  3C10A5           j       finish
-1063  28108D  exit     comp    zero
-1066  04108D           ldx     zero
-1069  509090  pri      ldch    notprime,x
-106C  E0109E  loop3    td      outdev
-106F  30106C           jeq     loop3
-1072  DC109E           wd      outdev
-1075  2C10A2           tix     nine
-1078  381069           jlt     pri
-107B  000007  number   word    7
-107E  000002  two      word    2
-1081  000001  one      word    1
-1084          index    resw    1
-1087  000000  flag     word    0
-108A          num      resw    1
-108D  000000  zero     word    0
-1090  6E6F74  notprime byte    c'not prime'
-      207072
-      696D65
-1099  707269  prime    byte    c'prime'
-      6D65
-109E  06      outdev   byte    x'06'
-109F  000005  five     word    5
-10A2  000009  nine     word    9
-10A5          finish   end     test
+1000          Prbn10   START   1000
+1000                   LDX     ZERO
+1003          LOOP     TD      DEV05
+1006                   JEQ     LOOP
+1009                   LDCH    RECORD,X
+ **** Unrecognized Operand 
+100C                   WD      DEV05
+100F                   TIX     K100
+1012                   JLT     LOOP
+.RECORD   BYTE    c'1:0123456789 '
+1015  323A30  RECORD1  BYTE    c'2:0123456789 '
+      313233
+      343536
+      373839
+      20
+1022  333A30  RECORD2  BYTE    c'3:0123456789 '
+      313233
+      343536
+      373839
+      20
+102F  343A30  RECORD3  BYTE    c'4:0123456789 '
+      313233
+      343536
+      373839
+      20
+103C  353A30  RECORD4  BYTE    c'5:0123456789 '
+      313233
+      343536
+      373839
+      20
+1049  363A30  RECORD5  BYTE    c'6:0123456789 '
+      313233
+      343536
+      373839
+      20
+1056  373A30  RECORD6  BYTE    c'7:0123456789 '
+      313233
+      343536
+      373839
+      20
+1063  383A30  RECORD7  BYTE    c'8:0123456'
+      313233
+      343536
+106C  000064  K100     WORD    100
+106F  000000  ZERO     WORD    0
+1072  05      DEV05    BYTE    X'05'
+1073                   END     Prbn10

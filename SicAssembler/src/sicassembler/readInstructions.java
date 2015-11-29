@@ -14,7 +14,7 @@ public class readInstructions {
      private static  String a;
      private static String b;
      private static String c;
-    
+    private static  ArrayList<String> Labels = new ArrayList();
     public static ArrayList<ListFile> getInstructions()
     {
         openfile();
@@ -43,6 +43,7 @@ public class readInstructions {
            if(z.startsWith("."))
            {
                l.setComment(z);
+               l.setLabel("Not Valid");
                x.add(l);
                continue;
            }
@@ -55,7 +56,19 @@ public class readInstructions {
             l.setLabel(a);
             l.setOperation(b);
             l.setOperand(c);
+            
+            if(Labels.contains(a)==false){
+            Labels.add(a);
+            if (a.equals(""))
+                Labels.remove(a);
             x.add(l);
+            }
+            else 
+            {
+                l.setLabelError(true);
+                x.add(l);
+            }
+            
         }
     }
     private static void closefile(){
