@@ -14,6 +14,7 @@ public class readInstructions {
      private static  String a;
      private static String b;
      private static String c;
+     private static String d;
     private static  ArrayList<String> Labels = new ArrayList();
     public static ArrayList<ListFile> getInstructions()
     {
@@ -38,7 +39,8 @@ public class readInstructions {
          
         while (scan.hasNext()){
             String z  = scan.nextLine();
-           
+           if(z.trim().length()==0)
+               continue;
            ListFile l = new ListFile();
            if(z.startsWith("."))
            {
@@ -51,8 +53,21 @@ public class readInstructions {
             a=a.trim();
             b = z.substring(9, 17);
             b=b.trim();
-            c = z.substring(17);
+            if(z.length()<35){
+                c = z.substring(17);
+            c=c.trim(); 
+            }
+            else
+            {
+                c = z.substring(17,35);
             c=c.trim();
+            d=z.substring(35);
+            d.trim();
+            l.setComm(d);
+            
+                
+            }
+            
             l.setLabel(a);
             l.setOperation(b);
             l.setOperand(c);

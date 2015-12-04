@@ -123,10 +123,7 @@ public class ObjectCode {
           
        }
        
-       for(ListFile l : b)
-       {
-           System.out.println(l.getObjcode());
-       }
+      
        return b;
    }
 }
