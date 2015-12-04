@@ -8,6 +8,12 @@ public class ListFile {
     private String objcode="      ";
     private String label;
     private String operation;
+    private String comm="";
+
+    public void setComm(String comm) {
+        this.comm = comm;
+    }
+    
 
     public boolean isErr() {
         return Err;
@@ -114,7 +120,7 @@ String lollipop="";
     {int l=(int)(objcode.length()/6.0-1);
     int k=1;
     
-       lollipop=( address+"  "+objcode.substring(0, 6)+"  "+label+space1+operation+space2+operand+"\n");
+       lollipop=( address+"  "+objcode.substring(0, 6)+"  "+label+space1+operation+space2+operand+space3+comm+"\n");
         while(k<=l)
         
         {lollipop=lollipop+("      "+objcode.substring(k*6, (k*6)+6)+"\n"); 
@@ -139,7 +145,7 @@ String lollipop="";
     }
     else
     { 
-          lollipop=( address+"  "+objcode+space34+"  "+label+space1+operation+space2+operand);
+          lollipop=address+"  "+objcode+space34+"  "+label+space1+operation+space2+operand+space3+comm ;
     }
       
    if(isErr())
