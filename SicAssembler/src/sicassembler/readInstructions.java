@@ -88,11 +88,11 @@ public class readInstructions {
                 l.setLabelError(true);
                 x.add(l);
             }
-//            if(b.equalsIgnoreCase("LTORG"))
-//            {
-//                x.addAll(literalPool);
-//                literalPool.clear();
-//            }
+            if(b.equalsIgnoreCase("LTORG"))
+            {
+                x.addAll(literalPool);
+                literalPool.clear();
+            }
             if(c.startsWith("="))
             {ListFile literal = new ListFile();
             boolean flagger = true;

@@ -2,9 +2,16 @@ FistBump SIC Assembler v1.0
 
 
 1000          Prbn10   START   1000           
-1000  00100C           LDA     =x'05'         
-1003  00100C           LDA     =x'05'         
-1006  00100C           LDA     =x'05'         
-1009  00100C           LDA     =x'05'         
-100C                   END     Prbn10         
-100C  05      =x'05'   BYTE    x'05'          
+1000  001009           LDA     =x'05'         
+1003  00100A           LDA     =x'03'         
+1006                   LTORG                  
+ **** illegal format in operation field                 
+ **** unrecognized operation code                       
+ **** missing or misplaced operand in instruction
+1009  05      =x'05'   BYTE    x'05'          
+100A  03      =x'03'   BYTE    x'03'          
+100B  001011           LDA     =x'02'         
+100E  001012           LDA     =x'031'        
+1011                   END     Prbn10         
+1011  02      =x'02'   BYTE    x'02'          
+1012  031     =x'031'  BYTE    x'031'         
