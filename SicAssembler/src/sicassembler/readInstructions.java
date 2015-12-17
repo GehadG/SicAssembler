@@ -15,13 +15,15 @@ public class readInstructions {
      private static String b;
      private static String c;
      private static String d;
-    private static  ArrayList<String> Labels = new ArrayList();
-    public static ArrayList<ListFile> getInstructions()
-    {
+     private static  ArrayList<String> Labels = new ArrayList();
+     private static ArrayList<ListFile> literalPool = new ArrayList();
+     
+     public static ArrayList<ListFile> getInstructions()
+     {
         openfile();
     
         return x;
-    }
+     }
     
     private static void openfile(){
         
@@ -32,6 +34,7 @@ public class readInstructions {
         }
         catch(Exception e){
              JOptionPane.showMessageDialog(null, "File Not Found", "Error", JOptionPane.WARNING_MESSAGE);
+             
              System.exit(0);
         }
     }
@@ -62,7 +65,7 @@ public class readInstructions {
                 c = z.substring(17,35);
             c=c.trim();
             d=z.substring(35);
-            d.trim();
+            d=d.trim();
             l.setComm(d);
             
                 
@@ -72,19 +75,58 @@ public class readInstructions {
             l.setOperation(b);
             l.setOperand(c);
             
+            
             if(Labels.contains(a)==false){
             Labels.add(a);
             if (a.equals(""))
                 Labels.remove(a);
             x.add(l);
+            
             }
             else 
             {
                 l.setLabelError(true);
                 x.add(l);
             }
+//            if(b.equalsIgnoreCase("LTORG"))
+//            {
+//                x.addAll(literalPool);
+//                literalPool.clear();
+//            }
+            if(c.startsWith("="))
+            {ListFile literal = new ListFile();
+            boolean flagger = true;
+                String op=c.substring(1);
+                if(op.startsWith("x")||op.startsWith("X")||op.startsWith("c")||op.startsWith("C"))
+                {
+                     literal.setLabel(c);
+                    literal.setOperation("BYTE");
+                    c=c.substring(1);
+                    
+                    literal.setOperand(c);
+                    
+                    
+                }
+                else
+                { literal.setLabel(c);
+                    literal.setOperation("WORD");
+                    literal.setOperand(c);
+                }
+               for(ListFile lit : literalPool)
+               {
+                   if(lit.getOperand().equals(c))
+                   {flagger=false;
+                   break;
+                   }
+                   
+               }
+               if(flagger)
+                   literalPool.add(literal);
+               
+            }
             
         }
+        x.addAll(literalPool);
     }
     private static void closefile(){
 

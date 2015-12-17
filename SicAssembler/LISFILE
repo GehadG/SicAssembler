@@ -1,50 +1,10 @@
 FistBump SIC Assembler v1.0
 
 
-1000          Prbn10   START   1000
-1000                   LDX     ZERO
-1003          LOOP     TD      DEV05
-1006                   JEQ     LOOP
-1009                   LDCH    RECORD,X
- **** Unrecognized Operand 
-100C                   WD      DEV05
-100F                   TIX     K100
-1012                   JLT     LOOP
-.RECORD   BYTE    c'1:0123456789 '
-1015  323A30  RECORD1  BYTE    c'2:0123456789 '
-      313233
-      343536
-      373839
-      20
-1022  333A30  RECORD2  BYTE    c'3:0123456789 '
-      313233
-      343536
-      373839
-      20
-102F  343A30  RECORD3  BYTE    c'4:0123456789 '
-      313233
-      343536
-      373839
-      20
-103C  353A30  RECORD4  BYTE    c'5:0123456789 '
-      313233
-      343536
-      373839
-      20
-1049  363A30  RECORD5  BYTE    c'6:0123456789 '
-      313233
-      343536
-      373839
-      20
-1056  373A30  RECORD6  BYTE    c'7:0123456789 '
-      313233
-      343536
-      373839
-      20
-1063  383A30  RECORD7  BYTE    c'8:0123456'
-      313233
-      343536
-106C  000064  K100     WORD    100
-106F  000000  ZERO     WORD    0
-1072  05      DEV05    BYTE    X'05'
-1073                   END     Prbn10
+1000          Prbn10   START   1000           
+1000  00100C           LDA     =x'05'         
+1003  00100C           LDA     =x'05'         
+1006  00100C           LDA     =x'05'         
+1009  00100C           LDA     =x'05'         
+100C                   END     Prbn10         
+100C  05      =x'05'   BYTE    x'05'          

@@ -28,6 +28,12 @@ public class AssignAdresses {
             {
                 continue;
             }
+            if(y.get(i).getOperation().equalsIgnoreCase("end"))
+            {
+                String hex = Long.toHexString(decimal);
+                y.get(i).setAddress(hex);
+                continue;
+            }
             if(y.get(i).getOperation().toLowerCase().equalsIgnoreCase("byte"))
             {
                 String m = y.get(i).getOperand();
@@ -51,6 +57,7 @@ public class AssignAdresses {
                 y.get(i).setAddress(hex);
                 decimal = decimal +(3*k1);
             }
+            
             else if(y.get(i).getOperation().toLowerCase().equalsIgnoreCase("resb")){
                 String h = y.get(i).getOperand();
                 int h1 = Integer.parseInt(h);

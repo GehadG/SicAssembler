@@ -10,6 +10,7 @@ public class ObjectCode {
     private static OpTable b22=new OpTable();
    public static ArrayList<ListFile> objectcode(){
        b=AssignAdresses.assign();
+       System.out.println(b.size());
        for(int i=1;i<b.size();i++){
            String ba="";
            int x=0;
@@ -70,7 +71,8 @@ public class ObjectCode {
              }
              
           }
- 
+ if(ba.equals(""))
+     continue;
         
           long dec = Long.parseLong(ba, 16);
           String bin = String.format("%16s",Long.toBinaryString(dec)).replace(' ','0');
