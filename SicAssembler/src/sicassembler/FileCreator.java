@@ -31,15 +31,28 @@ public class FileCreator {
 
         File file = new File("LISFILE");
         FileWriter fw;
-
+        ArrayList<ListFile> listFile = new ArrayList();
+        ArrayList<ListFile> temp = new ArrayList();
+        listFile.addAll(l2);
+        ListFile tempEnd= new ListFile();
+        for(ListFile l : l2)
+        {
+            
+            if(l.getOperation().equalsIgnoreCase("end"))
+                tempEnd = l;
+            else if(!l.getOperation().equalsIgnoreCase("ltorg"))
+                temp.add(l);   
+        }
+        temp.add(tempEnd);
+        l2=temp;
         try {
             fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write("FistBump SIC Assembler v1.0");
+            bw.write("FistBump SIC Assembler v1.1");
             bw.newLine();
             bw.newLine();
             bw.newLine();
-            for (ListFile l : l2) {
+            for (ListFile l : listFile) {
                 bw.write(l.toString());
                 bw.newLine();
             }

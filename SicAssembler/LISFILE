@@ -1,24 +1,20 @@
-FistBump SIC Assembler v1.0
+FistBump SIC Assembler v1.1
 
 
 1000          test     start   1000           
-1000  041025           ldx     zero           
-1003  50900F  movech   ldch    str1,x         
-1006  54901A           stch    str2,x         
-1009  2C1028           tix     eleven         
-100C  381003           jlt     movech         
-100F  746573  str1     byte    c'test string' 
-      742073
-      747269
-      6E67
-101A          str2     resb    11             
-                       org     str2           
- **** illegal format in operation field                 
- **** unrecognized operation code                       
- **** missing or misplaced operand in instruction
-101A          symbol   resb    6              
-1020          value    resb    3              
-1023          flag     resb    2              
-1025  000000  zero     word    0              
-1028  00000B  eleven   word    11             
-102B                   end     test           
+1000  001006           LDA     =x'05'         
+1003  041007           LDX     =c'andgate'    
+1006                   LTORG                  
+1006  05      =x'05'   BYTE    x'05'          
+1007  616E64  =c'andgate'BYTE    c'andgate'     
+      676174
+      65
+100E  001006           LDA     =x'05'         
+1011  001014           LDA     =5             
+1014                   LTORG                  
+1014  000005  =5       WORD    5              
+1017  0C101D           STA     =3             
+101A  0C1020           STA     =4             
+101D                   end     test           
+101D  000003  =3       WORD    3              
+1020  000004  =4       WORD    4              

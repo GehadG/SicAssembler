@@ -18,6 +18,7 @@ public class readInstructions {
      private static  ArrayList<String> Labels = new ArrayList();
      private static ArrayList<ListFile> literalPool = new ArrayList();
      private static int flag=0;
+     private static ArrayList<String> check = new ArrayList();
      
      public static ArrayList<ListFile> getInstructions()
      {
@@ -121,18 +122,15 @@ public class readInstructions {
                 else
                 { literal.setLabel(c);
                     literal.setOperation("WORD");
+                    c=c.substring(1);
                     literal.setOperand(c);
                 }
-               for(ListFile lit : literalPool)
-               {
-                   if(lit.getOperand().equals(c))
-                   {flagger=false;
-                   break;
+               
+                   if(!check.contains(c))
+                   {
+                       check.add(c);
+                       literalPool.add(literal);
                    }
-                   
-               }
-               if(flagger)
-                   literalPool.add(literal);
                
             }
             

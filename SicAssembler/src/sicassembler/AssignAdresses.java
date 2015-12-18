@@ -28,7 +28,7 @@ public class AssignAdresses {
             {
                 continue;
             }
-            if(y.get(i).getOperation().equalsIgnoreCase("end"))
+            if(y.get(i).getOperation().equalsIgnoreCase("end")||y.get(i).getOperation().equalsIgnoreCase("ltorg"))
             {
                 String hex = Long.toHexString(decimal);
                 y.get(i).setAddress(hex);

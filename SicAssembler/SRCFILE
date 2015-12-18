@@ -1,15 +1,10 @@
 test     start   1000
-         ldx     zero
-movech   ldch    str1,x
-         stch    str2,x
-         tix     eleven
-         jlt     movech
-str1     byte    c'test string'
-str2     resb    11
-         org     str2
-symbol   resb    6
-value    resb    3
-flag     resb    2
-zero     word    0
-eleven   word    11
+         LDA     =x'05'
+         LDX     =c'andgate'
+         LTORG         
+         LDA     =x'05'
+         LDA     =5
+         LTORG         
+         STA     =3
+         STA     =4
          end     test

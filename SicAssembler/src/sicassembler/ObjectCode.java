@@ -18,7 +18,8 @@ public class ObjectCode {
                 continue;
             }
             String b2 = b.get(i).getOperation();
-
+            if(b2.equalsIgnoreCase("ltorg"))
+                continue;
             if (!b2.equalsIgnoreCase("resw") && !b2.equalsIgnoreCase("resb") && !b2.equalsIgnoreCase("end") && !b2.equalsIgnoreCase("word") && !b2.equalsIgnoreCase("byte")) {
                 String b3 = b22.getOP(b2);
                 String ll = "";
