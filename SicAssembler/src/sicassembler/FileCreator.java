@@ -29,7 +29,6 @@ public class FileCreator {
 
     private void createLIS() {
 
-
         File file = new File("LISFILE");
         FileWriter fw;
 
@@ -51,16 +50,14 @@ public class FileCreator {
 
     }
 
-    private void createOBJ() 
-    {
+    private void createOBJ() {
         File file = new File("DEVF2");
         FileWriter fw;
 
-        
         try {
-            String head=getHead();
-            String text=getText();
-            String end=getEnd();
+            String head = getHead();
+            String text = getText();
+            String end = getEnd();
             fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(head);
@@ -107,7 +104,7 @@ public class FileCreator {
 
     private String getText() {
         int max = 10, i = 1;
-        String f="",objcode = "";
+        String f = "", objcode = "";
         String len, end = String.format("%6s", l2.get(1).getAddress()).replace(' ', '0'), start = String.format("%6s", l2.get(1).getAddress()).replace(' ', '0');
         String text = "";
         for (i = 1; i <= l2.size() - 1; i++) {
@@ -121,14 +118,13 @@ public class FileCreator {
                 text = text + start;
             }
             if (l2.get(i).getOperation().equalsIgnoreCase("end")) {
-               if(l2.get(i).getOperation().equalsIgnoreCase("end")&&l2.get(i-1).getOperation().equalsIgnoreCase("resw")){
-                   text=text.substring(0,text.length()-8);
-                   continue;
-               }
-               else if(l2.get(i-1).getOperation().equalsIgnoreCase("resb")&&l2.get(i).getOperation().equalsIgnoreCase("end")){
-                   text=text.substring(0,text.length()-8);
-                   continue;
-               }
+                if (l2.get(i).getOperation().equalsIgnoreCase("end") && l2.get(i - 1).getOperation().equalsIgnoreCase("resw")) {
+                    text = text.substring(0, text.length() - 8);
+                    continue;
+                } else if (l2.get(i - 1).getOperation().equalsIgnoreCase("resb") && l2.get(i).getOperation().equalsIgnoreCase("end")) {
+                    text = text.substring(0, text.length() - 8);
+                    continue;
+                }
                 end = String.format("%6s", l2.get(i).getAddress()).replace(' ', '0');
                 len = hexCal(start, end);
                 start = String.format("%6s", l2.get(i).getAddress()).replace(' ', '0');
@@ -139,9 +135,9 @@ public class FileCreator {
                 start = String.format("%6s", l2.get(i).getAddress()).replace(' ', '0');
                 text = text + len + objcode + "\r\nT";
                 objcode = l2.get(i).getObjcode();
-                if(l2.get(i).getOperation().equalsIgnoreCase("resw") || l2.get(i).getOperation().equalsIgnoreCase("resb")){
-                    objcode="";
-                    start = String.format("%6s", l2.get(i+1).getAddress()).replace(' ', '0');
+                if (l2.get(i).getOperation().equalsIgnoreCase("resw") || l2.get(i).getOperation().equalsIgnoreCase("resb")) {
+                    objcode = "";
+                    start = String.format("%6s", l2.get(i + 1).getAddress()).replace(' ', '0');
                 }
             } else if (objcode.length() < 60) {
                 if (l2.get(i).getOperation().equalsIgnoreCase("byte") || l2.get(i).getOperation().equalsIgnoreCase("word")) {
@@ -160,23 +156,22 @@ public class FileCreator {
                     objcode = objcode.toUpperCase();
                 } else if (l2.get(i).getOperation().equalsIgnoreCase("resw") || l2.get(i).getOperation().equalsIgnoreCase("resb")) {
                     if (l2.get(i).getOperation().equalsIgnoreCase("resw") || l2.get(i).getOperation().equalsIgnoreCase("resb")) {
-                         f=text; 
+                        f = text;
                         end = String.format("%6s", l2.get(i).getAddress()).replace(' ', '0');
-                    len = hexCal(start, end);
-                    end = String.format("%6s", l2.get(i + 1).getAddress()).replace(' ', '0');
-                    start = String.format("%6s", l2.get(i + 1).getAddress()).replace(' ', '0');
-                    text = text + len + objcode + "\r\nT";
-                    objcode = "";
-                    if(l2.get(i-1).getOperation().equalsIgnoreCase("resw") || l2.get(i-1).getOperation().equalsIgnoreCase("resb")){
-                       text=f;
-                       if(l2.get(i+1).getOperation().equalsIgnoreCase("end"))
-                       {
-                           continue;
-                       }
-                       start = String.format("%6s", l2.get(i + 1).getAddress()).replace(' ', '0');
-                       text=text.substring(0,text.length()-6)+start;
-                    }
-                    }else if(l2.get(i+1).getOperation().equalsIgnoreCase("resw") || l2.get(i+1).getOperation().equalsIgnoreCase("resb")){
+                        len = hexCal(start, end);
+                        end = String.format("%6s", l2.get(i + 1).getAddress()).replace(' ', '0');
+                        start = String.format("%6s", l2.get(i + 1).getAddress()).replace(' ', '0');
+                        text = text + len + objcode + "\r\nT";
+                        objcode = "";
+                        if (l2.get(i - 1).getOperation().equalsIgnoreCase("resw") || l2.get(i - 1).getOperation().equalsIgnoreCase("resb")) {
+                            text = f;
+                            if (l2.get(i + 1).getOperation().equalsIgnoreCase("end")) {
+                                continue;
+                            }
+                            start = String.format("%6s", l2.get(i + 1).getAddress()).replace(' ', '0');
+                            text = text.substring(0, text.length() - 6) + start;
+                        }
+                    } else if (l2.get(i + 1).getOperation().equalsIgnoreCase("resw") || l2.get(i + 1).getOperation().equalsIgnoreCase("resb")) {
                         continue;
                     }
                 }

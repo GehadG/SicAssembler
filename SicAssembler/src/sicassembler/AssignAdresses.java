@@ -34,6 +34,15 @@ public class AssignAdresses {
                 y.get(i).setAddress(hex);
                 continue;
             }
+            if (y.get(i).getOperation().equalsIgnoreCase("ORG")){
+                y.get(i).setAddress("    ");
+                continue;
+            }
+            if (y.get(i-1).getOperation().equalsIgnoreCase("ORG")){
+               String temp = y.get(i-2).getAddress();
+               decimal = Long.parseLong(temp,16);
+               
+            }
             if(y.get(i).getOperation().toLowerCase().equalsIgnoreCase("byte"))
             {
                 String m = y.get(i).getOperand();

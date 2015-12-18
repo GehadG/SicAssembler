@@ -1,19 +1,17 @@
-
 package sicassembler;
 
-
 public class ListFile {
-    
+
     private String address;
-    private String objcode="      ";
+    private String objcode = "      ";
     private String label;
     private String operation;
-    private String comm="";
-
+    private String comm = "";
+    private boolean orgErr= false;
+    
     public void setComm(String comm) {
         this.comm = comm;
     }
-    
 
     public boolean isErr() {
         return Err;
@@ -27,12 +25,21 @@ public class ListFile {
         return Comment;
     }
 
+    public boolean isOrgErr() {
+        return orgErr;
+    }
+
+    public void setOrgErr(boolean orgErr) {
+        this.orgErr = orgErr;
+    }
+
+    
     public void setComment(String Comment) {
         this.Comment = Comment;
     }
     private String operand;
     private boolean Err;
-    private String Comment="No Comment";
+    private String Comment = "No Comment";
     private boolean operandError;
 
     public boolean isOperandError() {
@@ -51,10 +58,9 @@ public class ListFile {
         this.labelError = labelError;
     }
     private boolean labelError;
-    
-    
-    public ListFile(){
-        
+
+    public ListFile() {
+
     }
 
     public String getAddress() {
@@ -73,7 +79,6 @@ public class ListFile {
         this.objcode = objcode;
     }
 
-    
     public String getLabel() {
         return label;
     }
@@ -97,85 +102,65 @@ public class ListFile {
     public void setOperand(String operand) {
         this.operand = operand;
     }
-    
-    
+
     @Override
-    public String toString()
-    {if(Comment.equals("No Comment")){
-        
-        String space1="";
-    String space2="";
-    String space3="";
-    for(int i=1;i<=9-label.length();i++)
-        space1=space1+" ";
-    for(int i=1;i<=8-operation.length();i++)
-        space2=space2+" ";
-    for(int i=1;i<=15-operand.length();i++)
-        space3=space3+" ";
-     String space34="";
-        for(int i=1;i<=6-objcode.length();i++)
-        space34=space34+" ";
-String lollipop="";
-    if(objcode.length()>6)
-    {int l=(int)(objcode.length()/6.0-1);
-    int k=1;
-    
-       lollipop=( address+"  "+objcode.substring(0, 6)+"  "+label+space1+operation+space2+operand+space3+comm+"\n");
-        while(k<=l)
-        
-        {lollipop=lollipop+("      "+objcode.substring(k*6, (k*6)+6)+"\n"); 
-        
-        
-      
-        k++;
-            
-            
-        
-       
-    }
-       if(k*6<objcode.length())
-       {
-           lollipop=lollipop+("      "+objcode.substring(k*6));
-       }
-       else
-       {
-           lollipop=lollipop.substring(0,lollipop.length()-1);
-       }
-        
-    }
-    else
-    { 
-          lollipop=address+"  "+objcode+space34+"  "+label+space1+operation+space2+operand+space3+comm ;
-    }
-      
-   if(isErr())
-   {
-       lollipop=lollipop+"\n **** illegal format in operation field                 \n" +
-" **** unrecognized operation code                       \n" +
-" **** missing or misplaced operand in instruction";
-   }
-   if(isLabelError())
-   {
-       lollipop=lollipop+"\n **** Duplicate Label ";
-   }
-   if(isOperandError())
-   {
-       lollipop=lollipop+"\n **** Unrecognized Operand ";
-   }
-   return lollipop;
-    
-    }
-   
-    else
-    {
-        return this.Comment;
-    }
-        
+    public String toString() {
+        if (Comment.equals("No Comment")) {
 
+            String space1 = "";
+            String space2 = "";
+            String space3 = "";
+            for (int i = 1; i <= 9 - label.length(); i++) {
+                space1 = space1 + " ";
+            }
+            for (int i = 1; i <= 8 - operation.length(); i++) {
+                space2 = space2 + " ";
+            }
+            for (int i = 1; i <= 15 - operand.length(); i++) {
+                space3 = space3 + " ";
+            }
+            String space34 = "";
+            for (int i = 1; i <= 6 - objcode.length(); i++) {
+                space34 = space34 + " ";
+            }
+            String lollipop = "";
+            if (objcode.length() > 6) {
+                int l = (int) (objcode.length() / 6.0 - 1);
+                int k = 1;
 
+                lollipop = (address + "  " + objcode.substring(0, 6) + "  " + label + space1 + operation + space2 + operand + space3 + comm + "\n");
+                while (k <= l) {
+                    lollipop = lollipop + ("      " + objcode.substring(k * 6, (k * 6) + 6) + "\n");
 
+                    k++;
 
+                }
+                if (k * 6 < objcode.length()) {
+                    lollipop = lollipop + ("      " + objcode.substring(k * 6));
+                } else {
+                    lollipop = lollipop.substring(0, lollipop.length() - 1);
+                }
 
-    
-}
+            } else {
+                lollipop = address + "  " + objcode + space34 + "  " + label + space1 + operation + space2 + operand + space3 + comm;
+            }
+
+            if (isErr()) {
+                lollipop = lollipop + "\n **** illegal format in operation field                 \n"
+                        + " **** unrecognized operation code                       \n"
+                        + " **** missing or misplaced operand in instruction";
+            }
+            if (isLabelError()) {
+                lollipop = lollipop + "\n **** Duplicate Label ";
+            }
+            if (isOperandError()) {
+                lollipop = lollipop + "\n **** Unrecognized Operand ";
+            }
+            return lollipop;
+
+        } else {
+            return this.Comment;
+        }
+
+    }
 }

@@ -17,6 +17,7 @@ public class readInstructions {
      private static String d;
      private static  ArrayList<String> Labels = new ArrayList();
      private static ArrayList<ListFile> literalPool = new ArrayList();
+     private static int flag=0;
      
      public static ArrayList<ListFile> getInstructions()
      {
@@ -75,6 +76,16 @@ public class readInstructions {
             l.setOperation(b);
             l.setOperand(c);
             
+            if (b.equalsIgnoreCase("ORG")){
+                for(int i=0;i<Labels.size();i++){
+                    if (Labels.get(i).equalsIgnoreCase(c)){
+                        flag=1;
+                    }
+                }
+                if (flag==0){
+                    l.setOrgErr(true);
+                }
+            }
             
             if(Labels.contains(a)==false){
             Labels.add(a);
