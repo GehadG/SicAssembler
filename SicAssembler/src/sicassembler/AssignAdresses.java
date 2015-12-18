@@ -36,12 +36,13 @@ public class AssignAdresses {
             }
             if (y.get(i).getOperation().equalsIgnoreCase("ORG")){
                 y.get(i).setAddress("    ");
+                y.get(i).setObjcode("      ");
                 continue;
             }
             if (y.get(i-1).getOperation().equalsIgnoreCase("ORG")){
                String temp = y.get(i-2).getAddress();
                decimal = Long.parseLong(temp,16);
-               
+               //without handling the object code
             }
             if(y.get(i).getOperation().toLowerCase().equalsIgnoreCase("byte"))
             {
