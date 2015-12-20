@@ -1,13 +1,14 @@
 package sicassembler;
 
 import java.util.ArrayList;
+import javax.script.ScriptException;
 
 public class ObjectCode {
 
     private static ArrayList<ListFile> b = new ArrayList<ListFile>();
     private static OpTable b22 = new OpTable();
 
-    public static ArrayList<ListFile> objectcode() {
+    public static ArrayList<ListFile> objectcode() throws ScriptException {
         b = AssignAdresses.assign();
         System.out.println(b.size());
         for (int i = 1; i < b.size(); i++) {
@@ -18,9 +19,10 @@ public class ObjectCode {
                 continue;
             }
             String b2 = b.get(i).getOperation();
-            if(b2.equalsIgnoreCase("ltorg"))
+            if(b2.equalsIgnoreCase("ltorg")||b2.equalsIgnoreCase("org"))
                 continue;
-            if (!b2.equalsIgnoreCase("resw") && !b2.equalsIgnoreCase("resb") && !b2.equalsIgnoreCase("end") && !b2.equalsIgnoreCase("word") && !b2.equalsIgnoreCase("byte")) {
+            
+            if (!b2.equalsIgnoreCase("resw") && !b2.equalsIgnoreCase("resb") && !b2.equalsIgnoreCase("end") && !b2.equalsIgnoreCase("word") && !b2.equalsIgnoreCase("byte")&& !b2.equalsIgnoreCase("equ")&& !b2.equalsIgnoreCase("org")) {
                 String b3 = b22.getOP(b2);
                 String ll = "";
                 if (b3.equalsIgnoreCase("invalid")) {
@@ -69,6 +71,13 @@ public class ObjectCode {
                 bin = "" + x + "" + bin.substring(1);
                 long bin2 = Long.parseLong(bin, 2);
                 String hex = java.lang.Long.toHexString(bin2);
+                if(hex.length()<4)
+        {int m= hex.length();
+         
+        for(int j=0;j<4-m;j++)
+            hex="0"+hex;
+            
+        }
                 String objcode = b3 + hex;
                 b.get(i).setObjcode(objcode.toUpperCase());
             } else if (b2.equalsIgnoreCase("byte")) {
@@ -104,9 +113,23 @@ public class ObjectCode {
                 b.get(i).setObjcode(bearing.toUpperCase());
 
             }
+            
 
         }
 
         return b;
+    }
+    private static boolean isNumber(String s)
+    {//System.out.println(s);
+        boolean check = true;
+        
+        try {
+
+        Integer.parseInt(s);
+
+    }catch (NumberFormatException e) {
+        check = false;
+    }
+    return check;
     }
 }

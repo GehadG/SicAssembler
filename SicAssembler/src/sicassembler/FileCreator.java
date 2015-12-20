@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.script.ScriptException;
 
 /**
  *
@@ -21,7 +22,7 @@ public class FileCreator {
 
     private static ArrayList<ListFile> l2 = new ArrayList<ListFile>();
 
-    public FileCreator() {
+    public FileCreator() throws ScriptException {
         l2 = ObjectCode.objectcode();
         createLIS();
         createOBJ();
@@ -34,17 +35,33 @@ public class FileCreator {
         ArrayList<ListFile> listFile = new ArrayList();
         ArrayList<ListFile> temp = new ArrayList();
         listFile.addAll(l2);
+        for(ListFile l : listFile)
+        {    if(!l.getComment().equalsIgnoreCase("No Comment"))
+                continue;
+            if(l.getLabel().startsWith("="))
+            {
+                l.setOperation(l.getLabel());
+                l.setOperand("");
+                l.setLabel("*");
+            }
+            if(l.getOperation().equalsIgnoreCase("ltorg"))
+                l.setAddress("    ");
+            if(l.getOperation().equalsIgnoreCase("rsub"))
+                l.setObjcode("4C0000");
+        }
         ListFile tempEnd= new ListFile();
         for(ListFile l : l2)
         {
-            
+            if(!l.getComment().equalsIgnoreCase("No Comment"))
+                continue;
             if(l.getOperation().equalsIgnoreCase("end"))
                 tempEnd = l;
-            else if(!l.getOperation().equalsIgnoreCase("ltorg"))
+            else if(!l.getOperation().equalsIgnoreCase("ltorg")&&!l.getOperation().equalsIgnoreCase("org")&&!l.getOperation().equalsIgnoreCase("equ"))
                 temp.add(l);   
         }
         temp.add(tempEnd);
         l2=temp;
+ 
         try {
             fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
@@ -98,7 +115,9 @@ public class FileCreator {
 
     private String getHead() {
         int i;
+        
         String hex, fi = l2.get(0).getLabel();
+        
         String add = l2.get(0).getAddress();
         if (fi.length() < 6) {
             i = 6 - fi.length();

@@ -68,6 +68,9 @@ public class ListFile {
     }
 
     public void setAddress(String address) {
+        int m= address.length();
+            for(int i =0;i<4-m;i++)
+                address="0"+address;
         this.address = address.toUpperCase();
     }
 
@@ -110,6 +113,7 @@ public class ListFile {
             String space1 = "";
             String space2 = "";
             String space3 = "";
+            
             for (int i = 1; i <= 9 - label.length(); i++) {
                 space1 = space1 + " ";
             }
