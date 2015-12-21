@@ -8,6 +8,7 @@ public class ListFile {
     private String operation;
     private String comm = "";
     private boolean orgErr= false;
+    private boolean equErr= false;
     
     public void setComm(String comm) {
         this.comm = comm;
@@ -106,6 +107,15 @@ public class ListFile {
         this.operand = operand;
     }
 
+    public boolean isEquErr() {
+        return equErr;
+    }
+
+    public void setEquErr(boolean equErr) {
+        this.equErr = equErr;
+    }
+    
+
     @Override
     public String toString() {
         if (Comment.equals("No Comment")) {
@@ -159,6 +169,12 @@ public class ListFile {
             }
             if (isOperandError()) {
                 lollipop = lollipop + "\n **** Unrecognized Operand ";
+            }
+            if (isOrgErr()){
+                lollipop = lollipop + "\n **** Undefined Label ";
+            }
+            if (isEquErr()){
+               // lollipop = lollipop + "\n **** Undefined Label ";
             }
             return lollipop;
 

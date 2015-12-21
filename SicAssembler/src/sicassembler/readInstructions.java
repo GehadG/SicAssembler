@@ -18,6 +18,7 @@ public class readInstructions {
      private static  ArrayList<String> Labels = new ArrayList();
      private static ArrayList<ListFile> literalPool = new ArrayList();
      private static int flag=0;
+     private static int flag2=0;
      private static ArrayList<String> check = new ArrayList();
      
      public static ArrayList<ListFile> getInstructions()
@@ -85,6 +86,16 @@ public class readInstructions {
                 }
                 if (flag==0){
                     l.setOrgErr(true);
+                }
+            }
+            if (b.equalsIgnoreCase("EQU")){
+                for(int i=0;i<Labels.size();i++){
+                    if (Labels.get(i).equalsIgnoreCase(c)){
+                        flag2=1;
+                    }
+                }
+                if (flag2==0){
+                    l.setEquErr(true);
                 }
             }
             
