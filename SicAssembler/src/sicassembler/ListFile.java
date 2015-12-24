@@ -9,10 +9,20 @@ public class ListFile {
     private String comm = "";
     private boolean orgErr= false;
     private boolean equErr= false;
+    private boolean evalErr = false;
     
     public void setComm(String comm) {
         this.comm = comm;
     }
+
+    public boolean isEvalErr() {
+        return evalErr;
+    }
+
+    public void setEvalErr(boolean evalErr) {
+        this.evalErr = evalErr;
+    }
+    
 
     public boolean isErr() {
         return Err;
@@ -173,8 +183,8 @@ public class ListFile {
             if (isOrgErr()){
                 lollipop = lollipop + "\n **** Undefined Label ";
             }
-            if (isEquErr()){
-               // lollipop = lollipop + "\n **** Undefined Label ";
+            if (isEvalErr()){
+                lollipop = lollipop + "\n **** Undefined operation ";
             }
             return lollipop;
 
