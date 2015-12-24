@@ -50,21 +50,32 @@ public class AssignAdresses {
                     y.get(i).setAddress("    ");
                     y.get(i).setObjcode("      ");
                     if (flag == 1) {
-                        b2 = y.get(i - 1).getAddress();
-                        kooso = y.get(i - 1).getOperand();
+                        for (int h = 0; h < i; h++) {
+                            if (y.get(h).getLabel().equalsIgnoreCase(y.get(i).getOperand())) {
+
+                                b2 = y.get(i - 1).getAddress();
+                                kooso = y.get(h).getOperand();
+                            }
+                        }
                         if (!y.get(i).isOrgErr()) {
                             for (int j = 0; j < i; j++) {
                                 if (y.get(i).getOperand().equalsIgnoreCase(y.get(j).getLabel())) {
                                     String temp = y.get(j).getAddress();
+                                    System.out.println("no");
                                     decimal = Long.parseLong(temp, 16);
                                 }
 
                             }
                         } else if (y.get(i).getOperand().contains("+") || y.get(i).getOperand().contains("-") || isNumber(y.get(i).getOperand())) {
-                            decimal = Long.parseLong(eval(y.get(i).getOperand()), 16);
+                            System.out.println("+");
+                            decimal = Long.parseLong(eval(y.get(i).getOperand(),i), 16);
                         }
                     }
                     if (flag == 2) {
+                        if (kooso.equalsIgnoreCase("")||b2.equalsIgnoreCase("")) {
+                            kooso = "0";
+                            b2="0";
+                        }
                         decimal = Long.parseLong(b2, 16) + Long.parseLong(kooso, 16);
                         flag = 0;
                     }
@@ -72,8 +83,8 @@ public class AssignAdresses {
                 }
 
                 if (y.get(i).getOperation().equalsIgnoreCase("EQU")) {
-                    
-                    y.get(i).setAddress(Long.toHexString(Long.parseLong(eval(y.get(i).getOperand()), 16)));
+
+                    y.get(i).setAddress(Long.toHexString(Long.parseLong(eval(y.get(i).getOperand(),i), 16)));
                     continue;
                 }
 
@@ -118,11 +129,12 @@ public class AssignAdresses {
         return y;
     }
 
-    private static String eval(String op) throws ScriptException {
+    private static String eval(String op,int z) throws ScriptException {
         String delim = "[+-]";
+        int x=0;
         String[] labels = new String[op.split(delim).length];
         labels = op.split(delim);
-        for (int i = 0; i < labels.length; i++) {
+        for (int i = 0; i < labels.length; i++) {x++;
             if (symbolTable.containsKey(labels[i])) {
                 op = op.replace(labels[i], "" + Integer.parseInt(symbolTable.get(labels[i]), 16));
 
@@ -142,10 +154,19 @@ public class AssignAdresses {
 
             for (int i = 0; i < 4 - m; i++) {
                 finall = "0" + finall;
+               // char sign = op.charAt(op.indexOf(labels[]))
             }
 
         }
-
+        if (x>1){
+        if (!isNumber(labels[0])&&!isNumber(labels[1])){
+            y.get(z).setEvalErr(true);
+            System.out.println("hi");
+        }
+        if (isNumber(labels[0])&&!isNumber(labels[1])){
+            y.get(z).setEvalErr(true);
+        }
+        }
         return finall;
 
     }
