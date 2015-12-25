@@ -20,7 +20,7 @@ public class readInstructions {
      private static int flag=0;
      private static int flag2=0;
      private static ArrayList<String> check = new ArrayList();
-     
+     private static int starCount=0;
      public static ArrayList<ListFile> getInstructions()
      {
         openfile();
@@ -84,7 +84,7 @@ public class readInstructions {
                         flag=1;
                     }
                 }
-                if (flag==0){
+                if (flag==0&&!c.equals("*")&&!c.trim().equals("")){
                     l.setOrgErr(true);
                 }
             }
@@ -130,6 +130,15 @@ public class readInstructions {
                     
                     
                 }
+                else if(op.startsWith("*"))
+                {
+                    literal.setLabel("=*"+starCount);
+                    l.setOperand("=*"+starCount);
+                    c="=*"+starCount;
+                    starCount++;
+                    literal.setOperation("Word");
+                    literal.setOperand("reqAddress");
+                }
                 else
                 { literal.setLabel(c);
                     literal.setOperation("WORD");
@@ -137,20 +146,72 @@ public class readInstructions {
                     literal.setOperand(c);
                 }
                
-                   if(!check.contains(c))
-                   {
+                   if(!check.contains(c)){
+                   {  boolean flger = false;
+                       if(op.startsWith("x")||op.startsWith("X")||op.startsWith("c")||op.startsWith("C")){
+                       for(String s: check )
+                           if(checkAs(s,op)){
+                               l.setTemper(l.getOperand());
+                               l.setOperand("="+s);
+                               flger=true;
+                           }
+                               
+                   }  
+                       if(!flger){  
                        check.add(c);
                        literalPool.add(literal);
+                       }
                    }
                
             }
             
         }
+        
+    }
         x.addAll(literalPool);
     }
     private static void closefile(){
 
         scan.close();
     }
+     private static boolean checkAs(String k,String kk){
+         String s = "";
+       if(k.startsWith("c")||k.startsWith("C")){
+           String j=k.substring(2, k.length()-1);
+           
+                    for (int i = 0; i < j.length(); i++) {
+                        char c = j.charAt(i);
+                        String asccii = Integer.toHexString(c);
+
+                        s = s + asccii;
+
+                    }
+                    
+       }
+       else if(k.startsWith("x")||k.startsWith("X")){
+             s=k.substring(2, k.length()-1).toUpperCase();
+            
+       }
+       String ss="";
+        if(kk.startsWith("c")||kk.startsWith("C")){
+           String j=kk.substring(2, kk.length()-1);
+           
+                    for (int i = 0; i < j.length(); i++) {
+                        char c = j.charAt(i);
+                        String asccii = Integer.toHexString(c);
+
+                        ss = ss + asccii;
+
+                    }
+                    
+       }
+       else if(kk.startsWith("x")||kk.startsWith("X")){
+             ss=kk.substring(2, kk.length()-1).toUpperCase();
+            
+       }
+       
+          return ss.equalsIgnoreCase(s);
+        
+    } 
     
 }

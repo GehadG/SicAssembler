@@ -9,7 +9,32 @@ public class ListFile {
     private String comm = "";
     private boolean orgErr= false;
     private boolean equErr= false;
-    
+    private boolean forwErr=false;
+    private boolean invExp=false;
+
+    public String getTemper() {
+        return temper;
+    }
+
+    public void setTemper(String temper) {
+        this.temper = temper;
+    }
+    private String temper="non";
+    public boolean isForwErr() {
+        return forwErr;
+    }
+
+    public void setForwErr(boolean forwErr) {
+        this.forwErr = forwErr;
+    }
+
+    public boolean isInvExp() {
+        return invExp;
+    }
+
+    public void setInvExp(boolean invExp) {
+        this.invExp = invExp;
+    }
     public void setComm(String comm) {
         this.comm = comm;
     }
@@ -173,9 +198,11 @@ public class ListFile {
             if (isOrgErr()){
                 lollipop = lollipop + "\n **** Undefined Label ";
             }
-            if (isEquErr()){
-               // lollipop = lollipop + "\n **** Undefined Label ";
-            }
+            if(isForwErr())
+                lollipop=lollipop+"\n **** invalid operand";
+            if(isInvExp())
+                lollipop=lollipop+"\n **** invalid expression";
+            
             return lollipop;
 
         } else {

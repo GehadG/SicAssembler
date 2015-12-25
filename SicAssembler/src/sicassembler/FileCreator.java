@@ -21,7 +21,7 @@ import javax.script.ScriptException;
 public class FileCreator {
 
     private static ArrayList<ListFile> l2 = new ArrayList<ListFile>();
-
+private boolean hasErrors=false;
     public FileCreator() throws ScriptException {
         l2 = ObjectCode.objectcode();
         createLIS();
@@ -38,13 +38,21 @@ public class FileCreator {
         for(ListFile l : listFile)
         {    if(!l.getComment().equalsIgnoreCase("No Comment"))
                 continue;
-            if(l.getLabel().startsWith("="))
+            if(l.getLabel().startsWith("=")&&!l.getLabel().startsWith("=*"))
             {
                 l.setOperation(l.getLabel());
                 l.setOperand("");
                 l.setLabel("*");
             }
-            if(l.getOperation().equalsIgnoreCase("ltorg"))
+            if(l.getLabel().startsWith("=*"))
+            {   l.setOperation("=*");
+                l.setLabel("*");
+            }
+            if(!l.getTemper().equalsIgnoreCase("non"))
+                l.setOperand(l.getTemper());
+            if(l.getOperand().startsWith("=*"))
+                l.setOperand("=*");
+            if(l.getOperation().equalsIgnoreCase("ltorg")||l.getOperation().equalsIgnoreCase("equ"))
                 l.setAddress("    ");
             if(l.getOperation().equalsIgnoreCase("rsub"))
                 l.setObjcode("4C0000");
@@ -71,6 +79,8 @@ public class FileCreator {
             bw.newLine();
             for (ListFile l : listFile) {
                 bw.write(l.toString());
+                if(l.toString().contains("****"))
+                    hasErrors=true;
                 bw.newLine();
             }
             bw.close();
@@ -86,14 +96,16 @@ public class FileCreator {
 
         try {
             String head = getHead();
-            String text = getText();
+            
             String end = getEnd();
             fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(head);
             bw.newLine();
+            if(!hasErrors){
+                String text = getText();
             bw.write(text);
-            bw.newLine();
+            bw.newLine();}
             bw.write(end);
             bw.close();
 

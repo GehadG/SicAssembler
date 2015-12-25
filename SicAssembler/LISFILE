@@ -2,62 +2,111 @@ FistBump SIC Assembler v1.1
 
 
 1000          TEST     START   1000           TEST PROGRAM FOR SIC SOFTWARE
-1000  141039  FIRST    STL     RETADR         SAVE RETURN ADDRESS
-1003  48203F  CLOOP    JSUB    RDREC          READ INPUT RECORD
-1006  00103C           LDA     LENGTH         TEST FOR EOF (LENGTH = 0
-1009  281033           COMP    ONE            PLUS EOL OR EOF)
-100C  301015           JEQ     ENDFIL         EXIT IF EOF FOUND
-100F  482073           JSUB    WRREC          WRITE OUTPUT RECORD
+1000          FIRST    STA     sdasd          
+ **** Unrecognized Operand 
+1003  482048  CLOOP    JSUB    RDREC          READ INPUT RECORD
+1006  00102A           LDA     =*             
+1009  28103C           COMP    ONE            PLUS EOL OR EOF)
+100C                   JEQ     ENDFIL         EXIT IF EOF FOUND
+ **** Unrecognized Operand 
+100F  48207F           JSUB    WRREC          WRITE OUTPUT RECORD
 1012  3C1003           J       CLOOP          LOOP
-1015  00102A  ENDFIL   LDA     =C'EOF'        INSERT END OF FILE MARKER
-1018  0C103F           STA     BUFFER         
-101B  00102D           LDA     THREE          SET LENGTH = 3
-101E  0C103C           STA     LENGTH         
-1021  482073           JSUB    WRREC          WRITE EOF
-1024  081039           LDL     RETADR         GET RETURN ADDRESS
+1015  00102D  ENDF     LDA     =*             INSERT END OF FILE MARKER
+1018  0C1048           STA     BUFFER         
+                       org     ENDF-CLOOP-FIRST
+ **** Undefined Label 
+ **** invalid operand
+101B  001036           LDA     THREE          SET LENGTH = 3
+101E  0C20BB           STA     LENGTH         
+1021  481030           JSUB    =C'EOF'        WRITE EOF
+1024  081030           LDL     =X'454F46'     GET RETURN ADDRESS
 1027  4C0000           RSUB                   RETURN TO CALLER
                        LTORG                  
-102A  454F46  *        =C'EOF'                
-102D  000003  THREE    WORD    3              
-1030  000000  ZERO     WORD    0              
-1033  000001  ONE      WORD    1              
-1036  000005  FIVE     WORD    5              
-1039          RETADR   RESW    1              
-103C          LENGTH   RESW    1              
-103F          BUFFER   RESB    4096           4096-BYTE BUFFER AREA
+102A  102A    *        =*      102A           
+102D  102D    *        =*      102D           
+1030  454F46  *        =C'EOF'                
+1033  000003  THREE    WORD    3              
+1036  00000A  THREE    WORD    10             
+ **** Duplicate Label 
+1039  000000  ZERO     WORD    0              
+103C  000001  ONE      WORD    1              
+103F  000005  FIVE     WORD    5              
+1042          RETADR   RESW    1              
+1045          LENGTH   RESW    1              
+1048          BUFFER   RESB    4096           4096-BYTE BUFFER AREA
 .                                                                 
 .       SUBROUTINE TO READ RECORD INTO BUFFER                     
 .                                                                 
-203F  041030  RDREC    LDX     ZERO           CLEAR LOOP COUNTER
-2042  001030           LDA     ZERO           CLEAR A TO ZERO
-2045  E0206F  RLOOP    TD      =X'F3'         TEST INPUT DEVICE
-2048  302045           JEQ     RLOOP          LOOP UNTIL READY
-204B  D8206F           RD      =X'F3'         READ CHARACTER INTO REGISTER A
-204E  281036           COMP    FIVE           TEST FOR EOL OR EOF
-2051  38205D           JLT     EXIT           EXIT LOOP IF FOUND
-2054  54103F           STCH    BUFFER         STORE CHARACTER IN BUFFER
-2057  2C2070           TIX     MAXLEN         LOOP UNLESS MAX LENGTH
-205A  382045           JLT     RLOOP          HAS BEEN REACHED
-205D  54103F  EXIT     STCH    BUFFER         STORE EOL/EOF IN BUFFER
-2060  10103C           STX     LENGTH         SAVE RECORD LENGTH
-2063  00103C           LDA     LENGTH         MODIFY RECORD LENGTH TO INCLUDE
-2066  181033           ADD     ONE            EOL OR EOF
-2069  0C103C           STA     LENGTH         
-206C  4C0000           RSUB                   RETURN TO CALLER
+2048          RDREC    LDX     zero           CLEAR LOOP COUNTER
+ **** Unrecognized Operand 
+204B  002125           LDA     ZERO           CLEAR A TO ZERO
+204E  E02078  RLOOP    TD      =*             TEST INPUT DEVICE
+2051  30204E           JEQ     RLOOP          LOOP UNTIL READY
+2054  D8207B           RD      =X'06'         READ CHARACTER INTO REGISTER A
+2057  28103F           COMP    FIVE           TEST FOR EOL OR EOF
+205A  382066           JLT     EXIT           EXIT LOOP IF FOUND
+205D  541048           STCH    BUFFER         STORE CHARACTER IN BUFFER
+2060  2C0000           TIX     MAXLEN         LOOP UNLESS MAX LENGTH
+2063  38204E           JLT     RLOOP          HAS BEEN REACHED
+2066  541048  EXIT     STCH    BUFFER         STORE EOL/EOF IN BUFFER
+2069  1020BB           STX     LENGTH         SAVE RECORD LENGTH
+206C  0020BB           LDA     LENGTH         MODIFY RECORD LENGTH TO INCLUDE
+206F  18103C           ADD     ONE            EOL OR EOF
+2072  0C20BB           STA     LENGTH         
+2075  4C0000           RSUB                   RETURN TO CALLER
                        LTORG                  
-206F  F3      *        =X'F3'                 
-2070  001000  LEN      WORD    4096           
-2070          MAXLEN   EQU     LEN            
+2078  2078    *        =*      2078           
+207B  06      *        =X'06'                 
+207C  001000  LEN      WORD    4096           
+              MAXLEN   EQU     LEN-LEN        
 .                                                                 
 .       SUBROUTINE TO WRITE RECORD FROM BUFFER                    
 .                                                                 
-2073  041030  WRREC    LDX     ZERO           CLEAR LOOP COUNTER
-2076  E0208B  WLOOP    TD      =X'06'         TEST OUTPUT DEVICE
-2079  302076           JEQ     WLOOP          LOOP UNTIL READY
-207C  50103F           LDCH    BUFFER         GET CHARACTER FROM BUFFER
-207F  DC208B           WD      =X'06'         WRITE CHARACTER
-2082  2C103C           TIX     LENGTH         LOOP UNTIL ALL CHARACTERS
-2085  382076           JLT     WLOOP          HAVE BEEN WRITTEN
-2088  4C0000           RSUB                   RETURN TO CALLER
-208B                   END     FIRST          
-208B  06      *        =X'06'                 
+207F  042125  WRREC    LDX     ZERO           CLEAR LOOP COUNTER
+2082  E0212F  WLOOP    TD      =*             TEST OUTPUT DEVICE
+2085  302082           JEQ     WLOOP          LOOP UNTIL READY
+2088  501048           LDCH    BUFFER         GET CHARACTER FROM BUFFER
+208B  DC207B           WD      =X'06'         WRITE CHARACTER
+208E  2C20BB           TIX     LENGTH         LOOP UNTIL ALL CHARACTERS
+2091  382082           JLT     WLOOP          HAVE BEEN WRITTEN
+2094  4C0000           RSUB                   RETURN TO CALLER
+2097                   wrong   1234           
+ **** illegal format in operation field                 
+ **** unrecognized operation code                       
+ **** missing or misplaced operand in instruction
+209A          Prbn12   START   1000           
+ **** illegal format in operation field                 
+ **** unrecognized operation code                       
+ **** missing or misplaced operand in instruction
+209D  042125           LDX     ZERO           
+.LOOP    LDA     DEVF3
+20A0                   JEQ     LOOP           
+ **** Unrecognized Operand 
+20A3                   DA     ZERO            
+ **** illegal format in operation field                 
+ **** unrecognized operation code                       
+ **** missing or misplaced operand in instruction
+20A6  D8212B           RD      DEVF3          
+20A9  282128  mariem   COMP    FOUR           
+20AC  3020B8  mariem   JEQ     DONE           
+ **** Duplicate Label 
+20AF  54A0BE           STCH    RECORD,X       
+20B2  2C2122           TIX     K100           
+20B5                   JLT     LOOP           
+ **** Unrecognized Operand 
+20B8          DONE     STX     LENGT          
+ **** Unrecognized Operand 
+20BB          LENGTH   RESW    1              
+ **** Duplicate Label 
+20BE          RECORD   RESB    100            
+2122  000064  K100     WORD    100            
+2125  000000  ZERO     WORD    0              END OF LINE
+ **** Duplicate Label 
+2128  000004  FOUR     WORD    4              END OF FILE
+212B  F3      DEVF3    BYTE    X'F3'          
+212C                   END     Prbn12         
+212C                   wrong   end            
+ **** illegal format in operation field                 
+ **** unrecognized operation code                       
+ **** missing or misplaced operand in instruction
+212F  212F    *        =*      212F           

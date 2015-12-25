@@ -62,7 +62,7 @@ public class ObjectCode {
                     }
 
                 }
-                if (ba.equals("")) {
+                if (ba.trim().equals("")) {
                     continue;
                 }
 
@@ -101,6 +101,10 @@ public class ObjectCode {
                     b.get(i).setObjcode(s.toUpperCase());
                 }
             } else if (b2.equalsIgnoreCase("word")) {
+                if(b.get(i).getLabel().startsWith("=*")){
+                    continue;
+                }
+                
                 String s = b.get(i).getOperand();
                 int g = Integer.parseInt(s);
                 String bearing = "";
